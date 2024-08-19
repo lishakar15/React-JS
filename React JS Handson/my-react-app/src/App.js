@@ -1,21 +1,17 @@
 import './App.css';
 import Header from './Header';
+import Content from './Content';
+import Footer from './Footer';
 
 function App() {
-
-  function handleGreetingChange()
-  {
-    const names = ["Steve","Jack","Hannah"];
-    const randomIndex = Math.floor(Math.random()*names.length);
-    return names[randomIndex];
-  };
-  return (
-    <div className="App">
-      <h1> Hi {handleGreetingChange()}</h1>
+    return(
+      <div>
       <Header />
-    </div>
-  );
-
+      <Content />
+      <Footer />
+      </div>
+      
+    );
 }
 
 export default App;
