@@ -1,4 +1,5 @@
 import './App.css';
+import Header from './Header';
 
 function App() {
 
@@ -6,14 +7,15 @@ function App() {
   {
     const names = ["Steve","Jack","Hannah"];
     const randomIndex = Math.floor(Math.random()*names.length);
-    console.log("val ==> "+names[randomIndex]);
     return names[randomIndex];
   };
   return (
     <div className="App">
       <h1> Hi {handleGreetingChange()}</h1>
+      <Header />
     </div>
   );
+
 }
 
 export default App;
