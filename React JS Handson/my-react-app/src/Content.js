@@ -9,10 +9,16 @@ const ContentFunction = function(){
         const randomIndex = Math.floor(Math.random()*names.length);
         return names[randomIndex];
     };
-
+    function handleClick(event)
+    {
+        console.log(`Button clicked ${JSON.stringify(event.type)}` );
+    }
+    
     return (
         <div className="App">
           <h1> Hi {handleGreetingChange()}</h1>
+          <button onClick={(e) =>handleClick(e)}>Click Me</button>
+          <p></p>
         </div>
       );
 }
