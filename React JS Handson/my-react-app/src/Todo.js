@@ -1,7 +1,12 @@
 import React from "react";
+import { BsFillTrash3Fill } from "react-icons/bs";
 
 
 const toDoFunction = () =>{
+
+    const listStyle = {
+        
+    }
     
     const toDoList = [
         {
@@ -26,10 +31,10 @@ const toDoFunction = () =>{
             <ul>
                 {toDoList.map((item)=>{
                     return (
-                    <li>
+                    <li key={item.id}>
                         <input type="checkbox" checked={item.isCompleted}></input>
                         <label>{item.taskName}</label>
-                        <button>Delete</button>
+                        <span><BsFillTrash3Fill  /></span>
                     </li>
                     )})
                 }
