@@ -23,9 +23,11 @@ const ToDoFunction = () =>{
             taskName:"Go to GYM",
         }
     ];
-    if(localStorage.getItem("toDolist") != null){
-        toDoList = JSON.parse(localStorage.getItem("toDolist"));
+
+    if(JSON.parse(localStorage.getItem("toDoList")).length>0){
+        toDoList = JSON.parse(localStorage.getItem("toDoList"));
     }
+    
     const [list,setList] = useState(toDoList);
 
     //Handle check box click
@@ -51,7 +53,7 @@ const ToDoFunction = () =>{
             return id !== item.id;
         });
         setList(updatedList);
-        localStorage.setItem("toDoList",JSON.stringify(list));
+        localStorage.setItem("toDoList",JSON.stringify(updatedList));
     }
 
     const styleToStrike = {
@@ -61,7 +63,8 @@ const ToDoFunction = () =>{
     return (
         <div className ="todo-container">
             <h4>To-do List</h4>
-            <ul className ="item-list">
+            {list.length > 0 ? (
+                <ul className ="item-list">
                 {list.map((item)=>{
                     return (
                     <li key={item.id}>
@@ -72,6 +75,10 @@ const ToDoFunction = () =>{
                     )})
                 }
             </ul>
+            ):(
+                <p>Your List is empty</p>
+            )}
+            
         </div>
 
     );
