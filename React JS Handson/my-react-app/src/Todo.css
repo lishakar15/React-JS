@@ -1,0 +1,37 @@
+.todo-container{
+    text-align: center;
+    font-size:40px;
+}
+h4{
+    margin:10px;
+}
+li {
+    list-style-type: none;
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+    
+    display: flex;
+}
+.item-label{
+    margin: 10px 20px ;
+}
+.item-list{
+    font-size: 30px;
+    margin: auto;
+
+}
+.checkBox{
+    width: 30px;
+    height: 30px;
+    margin: 5px; 
+}
+.trash{
+    color: #2e86c1;
+    height: 30px;
+}
+.trash :hover{
+    color:red;
+}
