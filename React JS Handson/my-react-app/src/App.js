@@ -4,6 +4,7 @@ import Content from './Content';
 import Footer from './Footer';
 import MyState from './MyState';
 import Todo from './Todo'
+import PropsParent from './PropsParent';
 
 function App() {
     return(
@@ -12,6 +13,7 @@ function App() {
       <Content />
       <MyState />
       <Todo />
+      <PropsParent />
       <Footer />
       </div>
       
