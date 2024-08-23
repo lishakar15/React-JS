@@ -2,6 +2,8 @@ import React from "react";
 import './Todo.css';
 import { BsFillTrash3Fill } from "react-icons/bs";
 import { useState } from "react";
+import InputAdd from "./InputAdd";
+import SearchItem from "./SearchItem";
 
 
 const ToDoFunction = () =>{
@@ -28,7 +30,9 @@ const ToDoFunction = () =>{
         toDoList = JSON.parse(localStorage.getItem("toDoList"));
     }
     
-    const [list,setList] = useState(toDoList);
+    let [list,setList] = useState(toDoList);
+    const[searchItem,setSearchItem] = useState("");
+
 
     //Handle check box click
     const handleCheck = (id)=>{
@@ -56,6 +60,22 @@ const ToDoFunction = () =>{
         localStorage.setItem("toDoList",JSON.stringify(updatedList));
     }
 
+    const handleAdd = (taskName)=>{
+        if(taskName)
+        {
+            const listLength = list.length;
+            const newList = [...list,
+                {
+                    id :listLength > 0 ? listLength+1 : 1,
+                    isCompleted : false,
+                    taskName: taskName,
+                }
+            ]
+            setList(newList);
+            localStorage.setItem("toDoList",JSON.stringify(newList));
+        }
+    }
+
     const styleToStrike = {
         textDecoration:'line-through'
     } 
@@ -63,22 +83,25 @@ const ToDoFunction = () =>{
     return (
         <div className ="todo-container">
             <h4>To-do List</h4>
+            <InputAdd handleAdd={handleAdd}/>
+            <SearchItem searchItem ={searchItem} setSearchItem={setSearchItem}/>
             {list.length > 0 ? (
                 <ul className ="item-list">
-                {list.map((item)=>{
-                    return (
-                    <li key={item.id}>
-                        <input type="checkbox" className="checkBox" checked={item.isCompleted} onChange={()=>handleCheck(item.id)}></input>
-                        <label onDoubleClick={()=>handleCheck(item.id)} className="item-label" style={item.isCompleted===true ? styleToStrike: null}>{item.taskName}</label>
-                        <span className="trash" onClick={()=> handleDelete(item.id)}><BsFillTrash3Fill  /></span>
-                    </li>
-                    )})
+                {list.filter((item) => item.taskName.toLowerCase().includes(searchItem.toLowerCase()))
+                    .map((item)=>{
+                        return (
+                        <li key={item.id} className="todoLi">
+                            <input type="checkbox" className="checkBox" checked={item.isCompleted} onChange={()=>handleCheck(item.id)}></input>
+                            <label onDoubleClick={()=>handleCheck(item.id)} className="item-label" style={item.isCompleted===true ? styleToStrike: null}>{item.taskName}</label>
+                            <span className="trash" onClick={()=> handleDelete(item.id)}><BsFillTrash3Fill  /></span>
+                        </li>
+                        )})
                 }
             </ul>
             ):(
                 <p>Your List is empty</p>
-            )}
-            
+            )
+        }
         </div>
 
     );

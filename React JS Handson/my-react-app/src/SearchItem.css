@@ -1,0 +1,32 @@
+form{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+
+}
+.searchTask{
+    margin: 10px;
+
+    border-width: 3px;
+}
+.searchTaskLabel{
+    font-size:20px;
+    font-weight: 500;
+}
+.searchButton, .clearButton{
+    background-color: rgb(22, 109, 22);
+    color: white;
+    border-radius: 0.5rem;
+    margin-right:10px;
+    border: none;
+    padding-top: 3px;
+
+}
+.clearButton{
+    background-color: red;
+}
+
+.searchButton:hover, .clearButton:hover{
+    transform: scale(1.1);
+}

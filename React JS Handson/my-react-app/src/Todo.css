@@ -11,9 +11,14 @@ li {
     justify-content: center;
     align-items: center;
     align-content: center;
-
-    
     display: flex;
+}
+.todoLi{
+    width: 30%;
+    background-color: rgb(241, 233, 233);
+    margin-bottom: 5px;
+    margin-left: 33.33%;
+    border-radius: 0.5rem;
 }
 .item-label{
     margin: 10px 20px ;

@@ -2,20 +2,18 @@ import React from 'react';
 import './PropsTest.css';
 
  
-const PropsTest = (passedObject) =>{
-    
-    const persons = passedObject.persons;
-    const handleClick = passedObject.handleClick;
+const PropsTest = ({persons,handleClick}) =>{
+
     return (
-        <div>
+        <ul>
 
             {persons.map((item)=> 
-            <p className ="App" onClick={()=>handleClick(item.id)} style={{cursor:'pointer'}}>
-                {item.name} is {item.age} years old and lives in {item.country}
-                </p>    
+            <li key={item.id}className ="list" onClick={()=>handleClick(item.id)} style={{cursor:'pointer'}}>
+                <a>{item.name} is {item.age} years old and lives in {item.country}</a>
+                </li>    
             )
             }
-        </div>
+        </ul>
     )
 }
 
