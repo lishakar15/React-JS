@@ -11,34 +11,46 @@ import SearchItem from "./SearchItem";
 const ToDoFunction = () =>{
 
     const inputRef = useRef();
-    let toDoList = [
-        {
-            id :1,
-            isCompleted : true,
-            taskName:"Learn React",
-        },
-        {
-            id:2,
-            isCompleted : false,
-            taskName:"Play Games",
-        },
-        {
-            id:3,
-            isCompleted : true,
-            taskName:"Go to GYM",
-        }
-    ];
 
-    if(JSON.parse(localStorage.getItem("toDoList")).length>0){
-        toDoList = JSON.parse(localStorage.getItem("toDoList"));
-    }
+    // if(JSON.parse(localStorage.getItem("toDoList")).length>0){
+    //     toDoList = JSON.parse(localStorage.getItem("toDoList"));
+    // }
 
-    const [list,setList] = useState(toDoList);
+    const [list,setList] = useState([]);
     const[searchItem,setSearchItem] = useState("");
+    const[isLoaded,setisLoaded] = useState(false);
+    const[error,setError] = useState(null);
 
     useEffect(()=>{
         console.log("Inside a useEffect");
     },[list]);
+
+    useEffect(()=>{
+        const fetchData = async ()=>{
+            try{
+                const response = await fetch("http://localhost:s3500/items");
+                console.log("Response = "+response);
+                const responseJson = await response.json();
+                console.log("Response JSON = "+responseJson)
+                setList(responseJson);
+                console.log("List value = "+list);
+            }
+            catch(err)
+            {
+                console.error("Error occurred while fetching data "+err);
+                setError("Error occurred while fetching data. Contact support")
+            }
+            finally
+            {
+                setisLoaded(true); //Set the value to true no matter the API call is successful or not.
+            }
+
+        }
+        setTimeout(()=>{
+            fetchData();
+        },2000);
+        
+    },[]); //This will run only once when the page is loaded
     
     //Handle check box click
     const handleCheck = (id)=>{
@@ -91,7 +103,10 @@ const ToDoFunction = () =>{
             <h4>To-do List</h4>
             <InputAdd handleAdd={handleAdd} inputRef={inputRef}/>
             <SearchItem searchItem ={searchItem} setSearchItem={setSearchItem}/>
-            {list.length > 0 ? (
+
+            {(error != null) ? (<p style={{color:"red"}}>{error}</p>)
+            :((isLoaded === false) ? (<p>Loading your Task List</p>)
+                : (list.length > 0 ? (
                 <ul className ="item-list">
                 {list.filter((item) => item.taskName.toLowerCase().includes(searchItem.toLowerCase()))
                     .map((item)=>{
@@ -106,7 +121,7 @@ const ToDoFunction = () =>{
             </ul>
             ):(
                 <p>Your List is empty</p>
-            )
+            )))
         }
         </div>
 

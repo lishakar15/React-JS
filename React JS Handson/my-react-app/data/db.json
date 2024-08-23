@@ -1,0 +1,19 @@
+{
+    "items": [
+        {
+            "id": 1,
+            "isCompleted": true,
+            "taskName": "Learn React"
+        },
+        {
+            "id": 2,
+            "isCompleted": false,
+            "taskName": "Play Games"
+        },
+        {
+            "id": 3,
+            "isCompleted": true,
+            "taskName": "Go to GYM"
+        }
+    ]   
+}   
