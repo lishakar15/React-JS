@@ -2,12 +2,14 @@ import React from "react";
 import './Todo.css';
 import { BsFillTrash3Fill } from "react-icons/bs";
 import { useState } from "react";
+import { useRef } from "react";
 import InputAdd from "./InputAdd";
 import SearchItem from "./SearchItem";
 
 
 const ToDoFunction = () =>{
 
+    const inputRef = useRef();
     let toDoList = [
         {
             id :1,
@@ -83,7 +85,7 @@ const ToDoFunction = () =>{
     return (
         <div className ="todo-container">
             <h4>To-do List</h4>
-            <InputAdd handleAdd={handleAdd}/>
+            <InputAdd handleAdd={handleAdd} inputRef={inputRef}/>
             <SearchItem searchItem ={searchItem} setSearchItem={setSearchItem}/>
             {list.length > 0 ? (
                 <ul className ="item-list">

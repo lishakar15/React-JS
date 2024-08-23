@@ -5,6 +5,7 @@ import Footer from './Footer';
 import MyState from './MyState';
 import Todo from './Todo'
 import PropsParent from './PropsParent';
+import FocusInput from './FocusInput';
 
 function App() {
     return(
@@ -15,6 +16,7 @@ function App() {
       <Todo />
       <PropsParent />
       <Footer />
+      <FocusInput />
       </div>
       
     );
