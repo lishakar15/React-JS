@@ -3,6 +3,7 @@ import './Todo.css';
 import { BsFillTrash3Fill } from "react-icons/bs";
 import { useState } from "react";
 import { useRef } from "react";
+import { useEffect } from "react"
 import InputAdd from "./InputAdd";
 import SearchItem from "./SearchItem";
 
@@ -31,11 +32,14 @@ const ToDoFunction = () =>{
     if(JSON.parse(localStorage.getItem("toDoList")).length>0){
         toDoList = JSON.parse(localStorage.getItem("toDoList"));
     }
-    
-    let [list,setList] = useState(toDoList);
+
+    const [list,setList] = useState(toDoList);
     const[searchItem,setSearchItem] = useState("");
 
-
+    useEffect(()=>{
+        console.log("Inside a useEffect");
+    },[list]);
+    
     //Handle check box click
     const handleCheck = (id)=>{
         if(list.length>0)

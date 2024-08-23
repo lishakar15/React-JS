@@ -5,7 +5,7 @@ const FocusInput = () => {
 
   const handleFocus = () => {
     inputRef.current.focus(); // Access the DOM element and focus it
-    inputRef.current.value="";
+    inputRef.current.value='';
   };
 
   return (
