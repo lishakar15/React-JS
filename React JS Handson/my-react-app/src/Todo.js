@@ -6,6 +6,7 @@ import { useRef } from "react";
 import { useEffect } from "react"
 import InputAdd from "./InputAdd";
 import SearchItem from "./SearchItem";
+import * as service from "./BackenService"
 
 
 const ToDoFunction = () =>{
@@ -28,7 +29,7 @@ const ToDoFunction = () =>{
     useEffect(()=>{
         const fetchData = async ()=>{
             try{
-                const response = await fetch("http://localhost:s3500/items");
+                const response = await fetch("http://localhost:3500/items");
                 console.log("Response = "+response);
                 const responseJson = await response.json();
                 console.log("Response JSON = "+responseJson)
@@ -53,7 +54,7 @@ const ToDoFunction = () =>{
     },[]); //This will run only once when the page is loaded
     
     //Handle check box click
-    const handleCheck = (id)=>{
+    const handleCheck = async (id)=>{
         if(list.length>0)
         {
             const updatedList = list.map((item) => {
@@ -64,33 +65,38 @@ const ToDoFunction = () =>{
                 return item;
             });
             setList(updatedList);
-            localStorage.setItem("toDoList",JSON.stringify(list));
+            const isUpdated = await service.updateList();
+            console.log("Item deleted = "+isUpdated);
+            //localStorage.setItem("toDoList",JSON.stringify(list));
         }
 
     }
 
     //Handle delete item
-    const handleDelete = (id) =>{
+    const handleDelete = async (id) =>{
         const updatedList = list.filter((item)=>{
             return id !== item.id;
         });
         setList(updatedList);
-        localStorage.setItem("toDoList",JSON.stringify(updatedList));
+        const isDeleted = await service.deleteList(id);
+        console.log("Item deleted = "+isDeleted);
+        //localStorage.setItem("toDoList",JSON.stringify(updatedList));
     }
 
-    const handleAdd = (taskName)=>{
+    const handleAdd = async (taskName)=>{
         if(taskName)
         {
             const listLength = list.length;
-            const newList = [...list,
-                {
-                    id :listLength > 0 ? listLength+1 : 1,
-                    isCompleted : false,
-                    taskName: taskName,
-                }
-            ]
+            const taskObj = {
+                id :listLength > 0 ? listLength+1 : 1,
+                isCompleted : false,
+                taskName: taskName,
+            };
+            const newList = [...list,taskObj]
+            const isSaved = await service.saveList(taskObj); //Saving to DB
             setList(newList);
-            localStorage.setItem("toDoList",JSON.stringify(newList));
+            console.log("Is data saved = "+isSaved);
+            //localStorage.setItem("toDoList",JSON.stringify(newList));
         }
     }
 
